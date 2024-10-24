@@ -4,7 +4,7 @@ import { useContext } from "react";
 import usuarioContext from "./data/context/UsuarioContext";
 
 export default function Home() {
-  const { usuario, loginGoogle } = useContext(usuarioContext)
+  const { usuario, loginGoogle, logout } = useContext(usuarioContext)
   
   return (
     <div className="flex flex-col items-center border border-orange-500 m-4 p-4">
@@ -18,6 +18,9 @@ export default function Home() {
       <h1 className="text-red-500 border border-red-500 m-4">{usuario?.nome}</h1>
       <button onClick={loginGoogle} className="border border-red-200">
         Login Google
+      </button>
+      <button onClick={logout} className="border border-red-200">
+       Sair
       </button>
       {JSON.stringify(usuario)}
     </div>

@@ -7,6 +7,7 @@ interface usuarioContextProps {
     usuario: Usuario | null
     carregando: boolean
     loginGoogle: () => Promise<Usuario | null>
+    logout: () => Promise<void>
 }
 
 interface UsuarioProvedorProps {
@@ -16,7 +17,8 @@ interface UsuarioProvedorProps {
 const UsuarioContext = createContext<usuarioContextProps>({
     usuario: null,
     carregando: false,
-    loginGoogle: async () => null
+    loginGoogle: async () => null,
+    logout: async () => {}
 })
 
 
@@ -43,13 +45,19 @@ export function UsuarioProvedor({children}: UsuarioProvedorProps){
         
         return usuario
     }
+
+    async function  logout() {
+        await autenticacao.logout()
+        setUsuario(null)
+    }
    
 
     return(
         <UsuarioContext.Provider value={{
              usuario: usuario,
              carregando: carregando,
-             loginGoogle: loginGoogle
+             loginGoogle: loginGoogle,
+             logout: logout
         }}>
             {children}
         </UsuarioContext.Provider>
